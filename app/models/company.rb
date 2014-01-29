@@ -1,6 +1,14 @@
 class Company < ActiveRecord::Base
 
+  has_many :exchange_rates
+
   NAMES_IDS = {:gales => 1, :cambio_18 => 2, :fortex => 3, :nixus => 4}
+
+  attr_accessor :last_exchange
+
+  def obtaining_last_exchange
+    @last_exchange ||= self.exchange_rates.last
+  end
 
   def self.search_dollar
     Company.all.each do |company|
@@ -74,4 +82,7 @@ class Company < ActiveRecord::Base
     end
   end
 
+  def to_s
+    self.name
+  end
 end

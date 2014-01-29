@@ -1,9 +1,13 @@
 DollarTrading::Application.routes.draw do
+  get "home/index", as: :index
+  get 'home/:company_id/company' => 'home#hisotry_exchange_rate', as: :hisotry_exchange_rate
+  get 'home/update_search_dollar' => 'home#update_search_dollar', as: :update_search_dollar
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  # root 'welcome#index'
+  root 'home#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

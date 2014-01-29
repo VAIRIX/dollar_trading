@@ -1,0 +1,30 @@
+<div class="col-lg-12">
+  <div class="page-header">
+    <h1 id="tables" class="text-center">Empresa: <%= @company.name%></h1>
+  </div>
+  <%= link_to "Empresas", index_path, { class: "pull-right" }%>
+  <div class="bs-example table-responsive">
+    <table class="table table-striped table-bordered table-hover">
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>Mondea</th>
+          <th>Compra</th>
+          <th>Venta</th>
+          <th>Promedio</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @exchange_rates.each do |exchange_rate| -%>
+          <tr>
+            <td><%= exchange_rate.updated_at%></td>
+            <td><%= exchange_rate.currency%></td>
+            <td><%= exchange_rate.purchase%></td>
+            <td><%= exchange_rate.sale%></td>
+            <td><%= exchange_rate.average%></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
