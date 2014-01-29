@@ -27,11 +27,11 @@
         <% @companies.each do |company| -%>
           <tr>
             <td><%= link_to company.name, company.url, {target: "_blank"} %></td>
-            <td><%= company.obtaining_last_exchange.updated_at%></td>
-            <td><%= company.obtaining_last_exchange.currency%></td>
-            <td><%= company.obtaining_last_exchange.purchase%></td>
-            <td><%= company.obtaining_last_exchange.sale%></td>
-            <td><%= company.obtaining_last_exchange.average%></td>
+            <td><%= company.obtaining_last_exchange.try(&:updated_at)%></td>
+            <td><%= company.obtaining_last_exchange.try(&:currency)%></td>
+            <td><%= company.obtaining_last_exchange.try(&:purchase)%></td>
+            <td><%= company.obtaining_last_exchange.try(&:sale)%></td>
+            <td><%= company.obtaining_last_exchange.try(&:average)%></td>
             <td><%= link_to "Historial", hisotry_exchange_rate_path(company)%></td>
           </tr>
         <% end %>
