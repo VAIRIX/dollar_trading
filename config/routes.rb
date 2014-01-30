@@ -1,6 +1,6 @@
 DollarTrading::Application.routes.draw do
-  get "home/index", as: :index
-  get 'home/:company_id/company' => 'home#hisotry_exchange_rate', as: :hisotry_exchange_rate
+  get "home" => 'home#index', as: :index
+  get 'company/:company_id' => 'home#hisotry_exchange_rate', as: :hisotry_exchange_rate
   get 'home/update_search_dollar' => 'home#update_search_dollar', as: :update_search_dollar
 
   # The priority is based upon order of creation: first created -> highest priority.

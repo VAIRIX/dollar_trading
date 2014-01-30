@@ -4,7 +4,7 @@ class HomeController < ApplicationController
   end
 
   def hisotry_exchange_rate
-  	@company = Company.find params[:company_id]
+  	@company = Company.friendly.find params[:company_id]
   	@exchange_rates = @company.exchange_rates.order(created_at: :desc)
   	@title = "Cotizaciones de la empresa: " + @company.name
   	@description = "Cotizaciones de la empresa: " + @company.name

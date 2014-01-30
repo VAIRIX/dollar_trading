@@ -34,6 +34,7 @@ gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootst
 gem 'sass-rails', '~> 4.0.0'
 gem 'less'
 gem 'whenever', :require => false
+gem 'friendly_id', '~> 5.0.0'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
