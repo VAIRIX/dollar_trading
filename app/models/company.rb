@@ -71,8 +71,8 @@ class Company < ActiveRecord::Base
 
   def sir(agent)
     rate = agent.page.search(self.search).text.split('Dolares')[1]
-    purchase_value = rate.split("\r\n")[1].strip.to_f
-    sale_value = rate.split("\r\n")[2].strip.to_f
+    purchase_value = rate.split("\r\n")[1].strip.gsub(',','.').to_f
+    sale_value = rate.split("\r\n")[2].strip.gsub(',','.').to_f
     ExchangeRate.exchange_dollar(purchase_value,sale_value, self)
   end
 
