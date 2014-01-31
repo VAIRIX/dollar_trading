@@ -5,7 +5,7 @@ class Company < ActiveRecord::Base
 
   has_many :exchange_rates
 
-  NAMES_IDS = {:gales => 1, :cambio_18 => 2, :fortex => 3, :nixus => 4}
+  NAMES_IDS = {:gales => 1, :cambio_18 => 2, :fortex => 3, :nixus => 4, :sir => 5, :suizo => 6}
 
   attr_accessor :last_exchange
 
@@ -31,6 +31,10 @@ class Company < ActiveRecord::Base
         fortex(agent)
       when NAMES_IDS[:nixus]
         nixus(agent)
+      when NAMES_IDS[:sir]
+        sir(agent)
+      when NAMES_IDS[:suizo]
+        suizo(agent)
       end
   end
 
@@ -77,6 +81,30 @@ class Company < ActiveRecord::Base
     rate = agent.page.search(self.search)[0].text.split('Dólar')[1].split("\n")
     purchase_value = rate[1].strip.to_f
     sale_value = rate[2].strip.to_f
+    average_value = ((purchase_value + sale_value)/2).round(2)
+    exchangeRate = ExchangeRate.new(company_id:self.id, currency_id: Currency::DollarID,purchase: purchase_value, sale: sale_value, average: average_value)
+    last_exchangeRate = ExchangeRate.last_of_the_company(self.id)
+    if (last_exchangeRate.nil? || !last_exchangeRate.equals?(exchangeRate))
+      exchangeRate.save
+    end
+  end
+
+  def sir(agent)
+    rate = agent.page.search(self.search).text.split('Dolares')[1]
+    purchase_value = rate.split("\r\n")[1].strip.to_f
+    sale_value = rate.split("\r\n")[2].strip.to_f
+    average_value = ((purchase_value + sale_value)/2).round(2)
+    exchangeRate = ExchangeRate.new(company_id:self.id, currency_id: Currency::DollarID,purchase: purchase_value, sale: sale_value, average: average_value)
+    last_exchangeRate = ExchangeRate.last_of_the_company(self.id)
+    if (last_exchangeRate.nil? || !last_exchangeRate.equals?(exchangeRate))
+      exchangeRate.save
+    end
+  end
+
+  def suizo(agent)
+    rate = agent.page.search(self.search).text.split("|")
+    purchase_value = rate[0].split("\n\t\t\t").last.strip.to_f
+    sale_value = rate[1].split("\n")[1].strip.to_f
     average_value = ((purchase_value + sale_value)/2).round(2)
     exchangeRate = ExchangeRate.new(company_id:self.id, currency_id: Currency::DollarID,purchase: purchase_value, sale: sale_value, average: average_value)
     last_exchangeRate = ExchangeRate.last_of_the_company(self.id)
