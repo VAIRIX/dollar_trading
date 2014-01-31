@@ -16,7 +16,9 @@ class Company < ActiveRecord::Base
 
   def self.search_dollar
     Company.all.each do |company|
-      company.test
+      Thread.new do
+        company.test
+      end
     end
   end
 
