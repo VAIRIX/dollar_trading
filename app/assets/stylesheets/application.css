@@ -11,5 +11,6 @@
  *= require bootstrap.min
  *= require variables.less
  *= require bootswatch
+ *= require tablesorter
  *= require_self
  */

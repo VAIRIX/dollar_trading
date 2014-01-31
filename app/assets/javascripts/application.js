@@ -15,3 +15,13 @@
 //= require twitter/bootstrap
 //= require turbolinks
 //= require_tree .
+
+$(document).ready(function(){
+  $(".tablesorter").tablesorter({ headers: { 0: {sorter: false },
+                                             1: {sorter: false },
+                                             2: {sorter: false },
+                                             3: {sorter: false },
+                                             4: {sorter: false },
+                                             7: {sorter: false },
+                                             11:{sorter: false }} });
+});
