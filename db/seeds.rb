@@ -25,13 +25,14 @@ company.save
 company = Company.new(name: 'Cambio Suizo', url: 'http://www.cambiosuizo.com.uy/barrafija2.php', search: 'table table')
 company.id = 6
 company.save
-
 company = Company.new(name: 'Bacacay', url: 'http://www.bacacaysf.com/cotizaciones.php', search: '.content table table tr')
 company.id = 7
 company.save
-
 company = Company.new(name: 'Varlix', url: 'http://www.varlix.com.uy/', search: '.cotizacion table tr')
 company.id = 8
+company.save
+company = Company.new(name: 'Indumex', url: 'http://www.indumex.com/indumex/', search: '#dnn_ctr368_ViewCotizador_ViewCotizador_DataGridHistorico tr')
+company.id = 9
 company.save
 
 Currency.delete_all
