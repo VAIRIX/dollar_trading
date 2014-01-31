@@ -5,7 +5,8 @@ class Company < ActiveRecord::Base
 
   has_many :exchange_rates
 
-  NAMES_IDS = {:gales => 1, :cambio_18 => 2, :fortex => 3, :nixus => 4, :sir => 5, :suizo => 6}
+  NAMES_IDS = {:gales => 1, :cambio_18 => 2, :fortex => 3, :nixus => 4,
+               :sir => 5, :suizo => 6, :bacacay => 7, :varlix => 8}
 
   attr_accessor :last_exchange
 
@@ -35,13 +36,16 @@ class Company < ActiveRecord::Base
         sir(agent)
       when NAMES_IDS[:suizo]
         suizo(agent)
+      when NAMES_IDS[:bacacay]
+        bacacay(agent)
+      when NAMES_IDS[:varlix]
+        varlix(agent)
       end
   end
 
   private
 
   def gales(agent)
-    agent.page.search(self.search)[0]
     rate = agent.page.search(self.search)[0].text.strip.split("\r\n")
     purchase_value = rate[1].gsub(',','.').to_f
     sale_value = rate[2].gsub(',','.').to_f
@@ -80,6 +84,20 @@ class Company < ActiveRecord::Base
     rate = agent.page.search(self.search).text.split("|")
     purchase_value = rate[0].split("\n\t\t\t").last.strip.to_f
     sale_value = rate[1].split("\n")[1].strip.to_f
+    ExchangeRate.exchange_dollar(purchase_value,sale_value, self)
+  end
+
+  def bacacay(agent)
+    rate = agent.page.search(self.search).text.split("Dolar USA \n")[1].split("Euro")[0]
+    purchase_value = rate.split("\n")[0].strip.to_f
+    sale_value = rate.split("\n")[1].strip.to_f
+    ExchangeRate.exchange_dollar(purchase_value,sale_value, self)
+  end
+
+  def varlix(agent)
+    rate = agent.page.search(self.search).text.split("Dolar")[1].split("Peso Arg")[0]
+    purchase_value = rate.split("\n")[1].strip.to_f
+    sale_value = rate.split("\n")[2].strip.to_f
     ExchangeRate.exchange_dollar(purchase_value,sale_value, self)
   end
 
