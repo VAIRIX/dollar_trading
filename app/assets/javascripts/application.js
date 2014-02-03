@@ -22,6 +22,17 @@ $(document).ready(function(){
                                              2: {sorter: false },
                                              3: {sorter: false },
                                              4: {sorter: false },
-                                             7: {sorter: false },
-                                             11:{sorter: false }} });
+                                             9: {sorter: false },
+                                             10:{sorter: false }} });
+
+  $("#index_graph").ready(function(){
+    $(".exchange_rate_values").each(function(){
+      var average = $(this).data("average");
+      var company = $(this).data("company");
+      $("#sparkline_"+company).sparkline(average, {
+        type: 'bar',
+        barSpacing: 5,
+      });
+    });
+  });
 });

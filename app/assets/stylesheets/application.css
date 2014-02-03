@@ -14,3 +14,9 @@
  *= require tablesorter
  *= require_self
  */
+
+*, *:before, *:after{
+  -webkit-box-sizing: inherit ;
+  -moz-box-sizing: inherit ;
+  box-sizing: inherit ;
+}

@@ -14,6 +14,10 @@ class Company < ActiveRecord::Base
     @last_exchange ||= self.exchange_rates.last
   end
 
+  def otabining_average_last_teen
+    self.exchange_rates.select(:average).last(15).map{|ex| ex.average}
+  end
+
   def self.search_dollar
     Company.all.each do |company|
       company.test

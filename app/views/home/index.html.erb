@@ -2,13 +2,13 @@
   <div>
     <h1 id="tables" class="text-center">Cotización Actual</h1>
   </div>
-  <div class="bs-example table-responsive">
+  <div id="index_graph"class="bs-example table-responsive">
     <table class="table table-striped table-bordered table-hover tablesorter">
       <thead>
         <tr>
           <th colspan=3></th>
           <th colspan=3 class="text-center">Ultima cotización</th>
-          <th></th>
+          <th colspan=2 class=""></th>
         </tr>
         <tr>
           <th>Empresa</th>
@@ -17,6 +17,7 @@
           <th>Compra</th>
           <th>Venta</th>
           <th>Promedio</th>
+          <th>Ultimos 15 promedios</th>
           <th></th>
         </tr>
       </thead>
@@ -28,7 +29,10 @@
             <td><%= company.obtaining_last_exchange.try(&:currency)%></td>
             <td><%= company.obtaining_last_exchange.try(&:purchase)%></td>
             <td><%= company.obtaining_last_exchange.try(&:sale)%></td>
-            <td><%= company.obtaining_last_exchange.try(&:average)%></td>
+            <td data-company="<%=company.id%>" data-average="<%=company.otabining_average_last_teen%>" class="exchange_rate_values">
+              <%= company.obtaining_last_exchange.try(&:average)%>
+            <td><div id="sparkline_<%=company.id%>" class="text-center"></div></td>
+            </td>
             <td><%= link_to "Historial", hisotry_exchange_rate_path(company)%></td>
           </tr>
         <% end %>
