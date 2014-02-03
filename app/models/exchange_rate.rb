@@ -13,6 +13,8 @@ class ExchangeRate < ActiveRecord::Base
     last_exchangeRate = ExchangeRate.last_of_the_company(company.id)
     if (last_exchangeRate.nil? || !last_exchangeRate.equals?(exchangeRate))
       exchangeRate.save
+    else
+      last_exchangeRate.update_attributes(updated_at: Time.now)
     end
   end
 
