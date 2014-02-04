@@ -15,6 +15,7 @@ $(document).ready(function(){
       $("#sparkline_"+company).sparkline(average, {
         type: 'bar',
         barSpacing: 5,
+        chartRangeMin: 5
       });
     });
   });
