@@ -10,8 +10,4 @@ class HomeController < ApplicationController
   	@description = "Cotizaciones de la empresa: " + @company.name
   end
 
-  def update_search_dollar
-  	Company.search_dollar
-  	redirect_to :index
-  end
 end
