@@ -34,6 +34,9 @@ company.save
 company = Company.new(name: 'Indumex', url: 'http://www.indumex.com/indumex/', search: '#dnn_ctr368_ViewCotizador_ViewCotizador_DataGridHistorico tr')
 company.id = 9
 company.save
+company = Company.new(name: 'BROU', url: 'http://www.bancorepublica.com.uy/web/guest/institucional/cotizaciones', search: '#exchangeRatesLarge')
+company.id = 10
+company.save
 
 Currency.delete_all
 currency = Currency.new(name: 'Dólar', code: 'USD')
