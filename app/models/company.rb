@@ -7,7 +7,7 @@ class Company < ActiveRecord::Base
 
   NAMES_IDS = {:gales => 1, :cambio_18 => 2, :fortex => 3, :nixus => 4,
                :sir => 5, :suizo => 6, :bacacay => 7, :varlix => 8, :indumex => 9,
-               :brou => 10}
+               :brou => 10, :cambilex => 11}
 
   attr_accessor :last_exchange
 
@@ -49,6 +49,8 @@ class Company < ActiveRecord::Base
         indumex(agent)
       when NAMES_IDS[:brou]
         brou(agent)
+      when NAMES_IDS[:cambilex]
+        cambilex(agent)
       end
   end
 
@@ -119,6 +121,13 @@ class Company < ActiveRecord::Base
 
   def brou(agent)
     rate = agent.page.search(self.search).text.split("Dólar")[1].split("Euro")[0].strip.split("\n")
+    purchase_value = rate[0].to_f
+    sale_value = rate[1].to_f
+    ExchangeRate.exchange_dollar(purchase_value,sale_value, self)
+  end
+
+  def cambilex(agent)
+    rate = agent.page.search(self.search)[1].text.strip.split("\r\n\t\t")
     purchase_value = rate[0].to_f
     sale_value = rate[1].to_f
     ExchangeRate.exchange_dollar(purchase_value,sale_value, self)

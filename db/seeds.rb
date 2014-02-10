@@ -37,6 +37,9 @@ company.save
 company = Company.new(name: 'BROU', url: 'http://www.bancorepublica.com.uy/web/guest/institucional/cotizaciones', search: '#exchangeRatesLarge')
 company.id = 10
 company.save
+company = Company.new(name: 'Cambilex', url: 'http://www.cambilex.com.uy/abitabinter/macros/cotizacion/innovanet/VerCotizaciones.jsp', search: '#tabla_cambilex table tr')
+company.id = 11
+company.save
 
 Currency.delete_all
 currency = Currency.new(name: 'Dólar', code: 'USD')
