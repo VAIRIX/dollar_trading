@@ -11,6 +11,8 @@ class Company < ActiveRecord::Base
 
   attr_accessor :last_exchange
 
+  scope :activated, -> { where(active: true) }
+
   def obtaining_last_exchange
     @last_exchange ||= self.exchange_rates.last
   end
@@ -23,8 +25,10 @@ class Company < ActiveRecord::Base
     Company.all.each do |company|
       begin
          company.test
+         company.active! unless company.active?
       rescue
         Rails.logger.debug "Error en compania " + company.name
+        company.inactive! if company.active?
       end
     end
   end
@@ -56,6 +60,20 @@ class Company < ActiveRecord::Base
       when NAMES_IDS[:cambilex]
         cambilex(agent)
       end
+  end
+
+  def inactive!
+    self.active = false
+    self.save
+  end
+
+  def active!
+    self.active = true
+    self.save
+  end
+
+  def active?
+    self.active
   end
 
   private

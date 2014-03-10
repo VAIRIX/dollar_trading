@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
   def index
-  	@companies = Company.all
+  	@companies = Company.activated
   end
 
   def hisotry_exchange_rate
